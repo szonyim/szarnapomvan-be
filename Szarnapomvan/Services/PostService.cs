@@ -47,20 +47,20 @@ public class PostService : IPostService
     {
       CurrentPage = page,
       MaxPage = maxPage,
-      Posts = posts
+      Items = posts
     };
   }
 
   public async Task<PostListResponse> GetPostListAsync(PostListRequest request)
   {
     int page = request.Page;
-    int skip = (page - 1) * request.PageSize;
-
     int count = _dataContext.Posts.Count();
     int maxPage = Convert.ToInt32(Math.Ceiling((double) count / request.PageSize));
 
     if (page > maxPage)
       page = maxPage;
+    
+    int skip = (page - 1) * request.PageSize;
 
     Task<List<Post>> posts = _dataContext.Posts
       .OrderByDescending(p => p.Id)
@@ -72,7 +72,7 @@ public class PostService : IPostService
     {
       CurrentPage = page,
       MaxPage = maxPage,
-      Posts = await posts
+      Items = await posts
     };
   }
 

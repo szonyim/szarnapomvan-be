@@ -6,5 +6,5 @@ public class PostListResponse
 {
   public int CurrentPage { get; set; }
   public int MaxPage { get; set; }
-  public List<Post> Posts { get; set; } = new List<Post>();
+  public List<Post> Items { get; set; } = new List<Post>();
 }

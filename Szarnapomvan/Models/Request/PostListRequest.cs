@@ -2,7 +2,7 @@
 
 public class PostListRequest
 {
-  public int PageSize { get; set; } = 10;
+  public int PageSize { get; set; } = 5;
 
   private int _page = 1;
 
