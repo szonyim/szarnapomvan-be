@@ -19,12 +19,16 @@ public class WelcomeController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<WelcomeViewResponse> Welcome([FromQuery]long lastId, [FromQuery]int take)
+  public async Task<WelcomeViewResponse> Welcome()
   {
     return new WelcomeViewResponse
     {
       Locations = await _locationService.FindAllAsync(),
-      Posts = await _postService.FindAsync(lastId, take)
+      Posts = await _postService.GetPostListAsync(new PostListRequest
+      {
+        Page = 1,
+        PageSize = 5
+      })
     };
   }
 }

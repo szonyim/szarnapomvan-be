@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Szarnapomvan.Models.Data;
 using Szarnapomvan.Models.Request;
+using Szarnapomvan.Models.Response;
 using Szarnapomvan.Services;
 
 namespace Szarnapomvan.Controllers;
@@ -17,9 +18,9 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("list")]
-    public async Task<List<Post>> GetPosts([FromQuery]long lastId, [FromQuery]int take = 25)
+    public async Task<PostListResponse> GetPostsAsync([FromQuery]PostListRequest postListRequest)
     {
-        return await _postService.FindAsync(lastId, take);
+        return await _postService.GetPostListAsync(postListRequest);
     }
 
     [HttpPost("add")]

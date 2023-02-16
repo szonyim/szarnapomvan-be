@@ -6,7 +6,7 @@ namespace Szarnapomvan.Application;
 
 public static class AppInitializer
 {
-  public const string CorsPolicy = "szarnapomvan_cors_policy";
+  public const string AllowAllCorsPolicy = "allow_all_cors_policy";
   
   public static void AddControllers(WebApplicationBuilder builder)
   {
@@ -48,15 +48,12 @@ public static class AppInitializer
   {
     builder.Services.AddCors(options =>
     {
-      options.AddPolicy(name: CorsPolicy,
+      options.AddPolicy(name: AllowAllCorsPolicy,
         policy  =>
         {
           policy.AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod();
-          
-          //policy.WithOrigins("http://example.com",
-            //"http://www.contoso.com");
         });
     });
   }

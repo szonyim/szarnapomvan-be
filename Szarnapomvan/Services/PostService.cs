@@ -2,20 +2,23 @@
 using Szarnapomvan.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using Szarnapomvan.Models.Request;
+using Szarnapomvan.Models.Response;
 
 namespace Szarnapomvan.Services;
 
 public interface IPostService
 {
-  Task<List<Post>> FindAsync(long lastId, int take = 25);
   Task<Post> AddAsync(CreatePostRequest createPostRequest);
   Task<int> Delete(long id);
+  PostListResponse GetPostList(PostListRequest request);
+  Task<PostListResponse> GetPostListAsync(PostListRequest request);
 }
 
 public class PostService : IPostService
 {
-  private ILogger<PostService> _logger;
+  private readonly ILogger<PostService> _logger;
   private readonly DataContext _dataContext;
+  private IPostService _postServiceImplementation;
 
   public PostService(ILogger<PostService> logger, DataContext dataContext)
   {
@@ -23,29 +26,54 @@ public class PostService : IPostService
     _dataContext = dataContext;
   }
 
-  public async Task<List<Post>> FindAsync(long lastId, int take)
+  public PostListResponse GetPostList(PostListRequest request)
   {
+    int page = request.Page;
+    int skip = (page - 1) * request.PageSize;
 
-    return lastId == 0 ? 
-      await FindFirstPageAsync(take) : 
-      await FindPageByLastId(lastId, take);
+    int count = _dataContext.Posts.Count();
+    int maxPage = Convert.ToInt32(Math.Ceiling((double) count / request.PageSize));
+
+    if (page > maxPage)
+      page = maxPage;
+
+    List<Post> posts = _dataContext.Posts
+      .OrderByDescending(p => p.Id)
+      .Skip(skip)
+      .Take(request.PageSize)
+      .ToList();
+
+    return new PostListResponse
+    {
+      CurrentPage = page,
+      MaxPage = maxPage,
+      Posts = posts
+    };
   }
 
-  private async Task<List<Post>> FindPageByLastId(long lastId, int take)
+  public async Task<PostListResponse> GetPostListAsync(PostListRequest request)
   {
-    return await _dataContext.Posts
-      .OrderByDescending(p => p.Id)
-      .Where(p => p.Id < lastId)
-      .Take(take)
-      .ToListAsync();
-  }
+    int page = request.Page;
+    int skip = (page - 1) * request.PageSize;
 
-  private async Task<List<Post>> FindFirstPageAsync(int take)
-  {
-    return await _dataContext.Posts
+    int count = _dataContext.Posts.Count();
+    int maxPage = Convert.ToInt32(Math.Ceiling((double) count / request.PageSize));
+
+    if (page > maxPage)
+      page = maxPage;
+
+    Task<List<Post>> posts = _dataContext.Posts
       .OrderByDescending(p => p.Id)
-      .Take(take)
+      .Skip(skip)
+      .Take(request.PageSize)
       .ToListAsync();
+
+    return new PostListResponse
+    {
+      CurrentPage = page,
+      MaxPage = maxPage,
+      Posts = await posts
+    };
   }
 
   public async Task<Post> AddAsync(CreatePostRequest createPostRequest)
@@ -77,4 +105,6 @@ public class PostService : IPostService
 
     return await _dataContext.SaveChangesAsync();
   }
+
+
 }
