@@ -21,6 +21,10 @@ name: Publish Docker image
 on:
   release:
     types: [published]
+    
+defaults:
+  run:
+    working-directory: ./Szarnapomvan
 
 jobs:
   push_to_registry:
