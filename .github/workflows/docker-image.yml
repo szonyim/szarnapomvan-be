@@ -52,7 +52,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          file: Szarnapomvan/Dockerfile
           context: "{{defaultContext}}:Szarnapomvan"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
