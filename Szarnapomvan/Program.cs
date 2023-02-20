@@ -1,6 +1,6 @@
 using Szarnapomvan.Application;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 AppInitializer.AddControllers(builder);
 AppInitializer.AddServices(builder);
