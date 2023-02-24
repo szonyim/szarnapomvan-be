@@ -59,8 +59,8 @@ public class PostService : IPostService
 
     if (page > maxPage)
       page = maxPage;
-    
-    int skip = (page - 1) * request.PageSize;
+
+    int skip = Math.Abs((page - 1) * request.PageSize);
 
     Task<List<Post>> posts = _dataContext.Posts
       .OrderByDescending(p => p.Id)
