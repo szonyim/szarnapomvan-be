@@ -27,7 +27,7 @@ public class WelcomeController : ControllerBase
       Posts = await _postService.GetPostListAsync(new PostListRequest
       {
         Page = 1,
-        PageSize = 5
+        PageSize = 6
       })
     };
   }

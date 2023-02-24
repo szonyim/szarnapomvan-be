@@ -84,6 +84,7 @@ public class PostService : IPostService
     {
       CreatedBy = createPostRequest.CreatedBy,
       Content = createPostRequest.Content,
+      BadLevel = createPostRequest.BadLevel,
       Location = location
     };
     
