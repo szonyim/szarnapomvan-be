@@ -9,7 +9,7 @@ AppInitializer.AddDatabaseContext(builder);
 AppInitializer.AddSpaStaticFiles(builder);
 AppInitializer.AddCors(builder);
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -28,5 +28,7 @@ app.UseSpa(configuration: spaBuilder =>
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+AppInitializer.ApplyMigrations(app);
 
 app.Run();

@@ -10,18 +10,18 @@ public class DataContext : DbContext
   {
   }
 
-  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-  {
-    if (!optionsBuilder.IsConfigured)
-    {
-      IConfigurationRoot configuration = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json")
-        .Build();
-      var connectionString = configuration.GetConnectionString("DatabaseConnection");
-      optionsBuilder.UseNpgsql(connectionString);
-    }
-  }
+  // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  // {
+  //   if (!optionsBuilder.IsConfigured)
+  //   {
+  //     IConfigurationRoot configuration = new ConfigurationBuilder()
+  //       .SetBasePath(Directory.GetCurrentDirectory())
+  //       .AddJsonFile("appsettings.json")
+  //       .Build();
+  //     var connectionString = configuration.GetConnectionString("DatabaseConnection");
+  //     optionsBuilder.UseNpgsql(connectionString);
+  //   }
+  // }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

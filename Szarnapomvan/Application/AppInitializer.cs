@@ -57,4 +57,11 @@ public static class AppInitializer
         });
     });
   }
+
+  public static void ApplyMigrations(WebApplication app)
+  {
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+    db.Database.Migrate();
+  }
 }
