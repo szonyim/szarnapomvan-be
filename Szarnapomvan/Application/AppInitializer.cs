@@ -22,6 +22,7 @@ public static class AppInitializer
   {
     builder.Services.AddScoped<ILocationService, LocationService>();
     builder.Services.AddScoped<IPostService, PostService>();
+    builder.Services.AddScoped<IMigrationService, MigrationService>();
   }
 
   public static void AddSwagger(WebApplicationBuilder builder)

@@ -29,6 +29,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-AppInitializer.ApplyMigrations(app);
-
 app.Run();
