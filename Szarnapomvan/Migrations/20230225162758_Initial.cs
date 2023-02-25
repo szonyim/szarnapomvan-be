@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,8 +17,8 @@ namespace Szarnapomvan.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,10 +30,10 @@ namespace Szarnapomvan.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BadLevel = table.Column<int>(type: "integer", nullable: false),
-                    CreatedBy = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Content = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BadLevel = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     LocationId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
