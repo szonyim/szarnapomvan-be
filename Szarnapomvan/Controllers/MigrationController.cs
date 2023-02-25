@@ -14,6 +14,7 @@ public class MigrationController : ControllerBase
     _migrationService = migrationService;
   }
 
+  [HttpGet("apply")]
   public string Apply()
   {
     return _migrationService.Apply();
