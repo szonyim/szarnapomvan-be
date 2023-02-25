@@ -11,19 +11,17 @@ AppInitializer.AddCors(builder);
 
 WebApplication app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseCors(AppInitializer.AllowAllCorsPolicy);
+  app.UseCors(AppInitializer.AllowAllCorsPolicy);
 }
 
 app.UseSpaStaticFiles();
-app.UseSpa(configuration: spaBuilder =>
-{
-    spaBuilder.Options.DevServerPort = 8080;
-});
+app.UseSpa(configuration: spaBuilder => { spaBuilder.Options.DevServerPort = 8080; });
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
