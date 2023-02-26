@@ -21,6 +21,7 @@ if (app.Environment.IsDevelopment())
   app.UseCors(AppInitializer.AllowAllCorsPolicy);
 }
 
+app.UseSpaStaticFiles();
 app.UseSpaStaticFiles(new StaticFileOptions
 {
   FileProvider = new PhysicalFileProvider(
