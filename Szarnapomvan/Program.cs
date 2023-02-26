@@ -1,3 +1,4 @@
+using Microsoft.Extensions.FileProviders;
 using Szarnapomvan.Application;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -20,8 +21,14 @@ if (app.Environment.IsDevelopment())
   app.UseCors(AppInitializer.AllowAllCorsPolicy);
 }
 
-app.UseSpaStaticFiles();
-app.UseSpa(configuration: spaBuilder => { spaBuilder.Options.DevServerPort = 8080; });
+app.UseSpaStaticFiles(new StaticFileOptions
+{
+  FileProvider = new PhysicalFileProvider(
+    Path.Combine(app.Environment.ContentRootPath, "wwwroot", ".well-known")),
+  RequestPath = "/.well-known",
+  ServeUnknownFileTypes = true
+});
+app.UseSpa(configuration: spaBuilder => { });
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
