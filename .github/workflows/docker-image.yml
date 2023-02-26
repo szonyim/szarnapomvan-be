@@ -36,6 +36,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          file: Szarnapomvan/Dockerfile
           push: true
           tags: szonyim/szarnapomvan:latest
           labels: ${{ steps.meta.outputs.labels }}
