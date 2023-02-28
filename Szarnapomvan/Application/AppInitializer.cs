@@ -36,7 +36,8 @@ public static class AppInitializer
   {
     builder.Services.AddDbContext<DataContext>(options =>
     {
-      options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+      // options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+      options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection"));
     });
   }
 
