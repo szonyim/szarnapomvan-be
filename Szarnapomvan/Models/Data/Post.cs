@@ -15,7 +15,9 @@ public class Post
   [Required, MaxLength(255)]
   public string CreatedBy { get; set; } = default!;
   
-  public DateTime CreatedAt { get; set; } = DateTime.Now;
+  [DataType(DataType.DateTime)]
+  [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm:ssZ}")]
+  public DateTime CreatedAt { get; set; } = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
   
   [Required, MaxLength(2000)]
   public string Content { get; set; } = default!;
